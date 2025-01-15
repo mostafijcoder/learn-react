@@ -9,8 +9,14 @@ function App() {
   
   return (
     <div>
-      // data to display in the string format
-      <pre> {JSON.stringify(data, null,5)} </pre> 
+      {/*<pre> {JSON.stringify(data, null,5)} </pre> */}
+      // map fetching data to display in the browser
+      {data && data.map((item) => (
+        <div key={item.id}>
+          <h1>{item.title}</h1>
+          <p>{item.completed ? "Completed" : "Not Completed"}</p>
+        </div>
+      ))}
     </div>  
     );
 }
