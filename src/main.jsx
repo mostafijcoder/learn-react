@@ -17,8 +17,9 @@ import { render } from 'react-dom';
   React.createElement('p',{},'This is a paragraph'),
   React.createElement('ul',{},
   React.createElement('li',{},'Item 1'),
-  React.createElement('li',{},'Item 2')
+  React.createElement('li',{},'Item 2'),
+  React.createElement('li',{},'Item 3')
   )
   );
   render(root,node);
-  
+
