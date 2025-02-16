@@ -3,6 +3,7 @@
 //import './index.css'
 //import App from './App.jsx'
 import Proptypes from 'prop-types';
+import ReactDOM from "react-dom";
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
@@ -13,7 +14,78 @@ import { render } from 'react-dom';
   
  )*///;
  const node=document.getElementById('root');
- class Post extends React.Component{
+ class CreateComment extends React.Component{
+    constructor(props){
+      super(props);
+      this.state={
+        content:'',
+        user:''
+      };
+      this.handleUserChange=this.handleUserChange.bind(this);
+      this.handleTextChange=this.handleTextChange.bind(this);
+      this.handleSubmit=this.handleSubmit.bind(this);
+    }
+    handleUserChange(event){
+      const val=event.target.value;
+      this.setState(()=>{
+        return{
+          user:val
+        };
+      });
+    }
+    handleTextChange(event){
+      const val=event.target.value;
+      this.setState(()=>{
+        return{
+          content:val
+        };
+      });
+    }
+    handleSubmit(){
+      event.preventDefault();
+      this.props.onCommentSubmit({
+        user:this.state.user,
+        content:this.state.content.trim()
+      });
+      this.setState(()=>{
+        return{
+          user:'',
+          content:''
+        };
+      });
+    }
+    render(){
+      return React.createElement('form',{
+        className:'createComment',
+        onSubmit:this.handleSubmit
+      },
+      React.createElement('input',{
+        type:'text',
+        placeholder:'Your name',
+        value:this.state.user,
+        onChange:this.handleUserChange
+      }),
+      React.createElement('input',{
+        type:'text',
+        placeholder:'Thoughts?',
+        value:this.state.content,
+        onChange:this.handleTextChange
+      }),
+      React.createElement('input',{
+        type:'submit',
+        value:'Post'
+      })
+      );
+    }
+  }
+  ReactDOM.render(React.createElement(CreateComment),node);
+
+
+
+
+
+
+/*
    render(){
      return React.createElement('div',
       {
@@ -79,7 +151,7 @@ import { render } from 'react-dom';
   ReactDOM.render(App,node);
 
 
-
+*/
 
 
 /*
