@@ -21,11 +21,32 @@ import { render } from 'react-dom';
       },
       React.createElement('h2',{
         className:'postAuthor',
-        id:this.props.id
+        id:this.props.id,
       },
       this.props.user,
       React.createElement('span',{
         className:'postBody'
+      },
+      this.props.content
+      ),
+      this.props.children
+      )
+      );
+    }
+  }
+
+  class Comment extends React.Component{
+    render(){
+      return React.createElement('div',
+      {
+        className:'comment'
+      },
+      React.createElement('h2',{
+        className:'commentAuthor'
+      },
+      this.props.user,
+      React.createElement('span',{
+        className:'commentContent'
       },
       this.props.content
       )
@@ -33,6 +54,11 @@ import { render } from 'react-dom';
       );
     }
   }
+  Comment.propTypes={
+    id:Proptypes.number.isRequired,
+    content:Proptypes.string.isRequired,
+    user:Proptypes.string.isRequired
+  };
   Post.propTypes={
     user:Proptypes.string.isRequired,
     content:Proptypes.string.isRequired,
@@ -42,8 +68,15 @@ import { render } from 'react-dom';
     id:1,
     content:'said: This is a post',
     user:'mark'
-  });
-  render(App,node);
+  },
+  React.createElement(Comment,{
+    id:2,
+    user:'bob',
+    content:'commented: wow! how cool'
+  })
+  );
+
+  ReactDOM.render(App,node);
 
 
 
