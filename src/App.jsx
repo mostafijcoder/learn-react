@@ -1,29 +1,40 @@
 import React from "react";
 import { render} from "react-dom";
+import PropTypes from "prop-types";
 
-class Dutton extends React.Component {
+class Counter extends React.Component {
+  static propTypes = {
+    increaseBy: PropTypes.number,
+    onIncrease: PropTypes.func.isRequired
+  }
+  static defaultProps = {
+    increaseBy: 1
+  }
   constructor(props) {
     super(props);
     this.state = {
-      name: "mark"
+      count: 0
     }
-    this.onButtonClick=this.onButtonClick.bind(this);
+    this.onIncrease=this.onIncrease.bind(this);
   }
-  onButtonClick() {
-    this.setState({
-      name: "john"
-    });
+  onIncrease() {
+    this.setState(state => ({
+      count: state.count + this.props.increaseBy
+    }));
+    this.props.onIncrease();
   }
   render() {
     return (
       <div>
-        <h1>My name is {this.state.name}</h1>
-        <button onClick={this.onButtonClick}>reveal</button>
+        <h1>Count: {this.state.count}</h1>
+        <button onClick={this.onIncrease}>increase</button>
       </div>
     );
   }
 }
-export default Dutton;
+
+
+export default Counter;
         
      
         
