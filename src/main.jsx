@@ -1,10 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import Counter from "./App.jsx";
+//import Counter from "./App.jsx";
+import UserCard from "./App.jsx";
 
 const rootElement = document.getElementById("root");
 createRoot(rootElement).render(
   <React.StrictMode>
-    <Counter increaseBy={1} />
+    <UserCard username="mostafijcoder" />
   </React.StrictMode>
 );

@@ -2,39 +2,29 @@ import React from "react";
 import { render} from "react-dom";
 import PropTypes from "prop-types";
 
-class Counter extends React.Component {
-  static propTypes = {
-    increaseBy: PropTypes.number,
-    onIncrease: PropTypes.func.isRequired
-  }
-  static defaultProps = {
-    increaseBy: 1
-  }
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0
-    }
-    this.onIncrease=this.onIncrease.bind(this);
-  }
-  onIncrease() {
-    this.setState(state => ({
-      count: state.count + this.props.increaseBy
-    }));
-    this.props.onIncrease();
-  }
-  render() {
-    return (
-      <div>
-        <h1>Count: {this.state.count}</h1>
-        <button onClick={this.onIncrease}>increase</button>
-      </div>
-    );
-  }
+const UserProfile=props=>{
+    return <img src={`https://source.unsplash.com/${props.username}`}/>
+}
+UserProfile.propTypes={
+    username:PropTypes.string
+}
+UserProfile.defaultProps={
+    username:"mostafijcoder"
+}
+const UserProfileLink=props=>{
+    return <a href={`https://ifelse.io/${props.username}`}>{props.username}</a>
+}
+const UserCard=props=>{
+    return (<div>
+        <UserProfile username={props.username}/>
+        <UserProfileLink username={props.username}/>
+    </div>
+    )
 }
 
 
-export default Counter;
+
+export default UserCard;
         
      
         
