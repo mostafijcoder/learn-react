@@ -24,6 +24,20 @@ class ChildComponent extends React.Component {
   componentDidMount() {
     console.log("ChildComponent: componentDidMount");
   }
+  componentWillReceiveProps(nextProps) {
+    console.log("ChildComponent: componentWillReceiveProps ()");
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("ChildComponent: shouldComponentUpdate ()");
+    return true;
+  }
+  componentWillUpdate(nextProps, nextState) {
+    console.log("ChildComponent: componentWillUpdate ()");
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("ChildComponent: componentDidUpdate ()");
+  }
+  
     
   render() {
     if (this.state.oops){
