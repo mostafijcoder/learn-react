@@ -1,89 +1,30 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { render} from "react-dom";
 import PropTypes from "prop-types";
 
-class ChildComponent extends React.Component {
-  static propTypes = {
-    name: PropTypes.string
-  };
-  static defaultProps=(function(){
-        console.log("ChildComponent: defaultProps");
-        return {};
-    }
-  )();
-  constructor(props) {
-    super(props);
-    console.log("ChildComponent: state");
-    this.state = {
-      name: "Mark"
-    }
+function MyComponent (props) {
+  const [outputValue, setOutputValue] = React.useState('Placeholder');
+  function UpdateText() {
+    setOutputValue(document.getElementById('inputTextBox').value);
   }
-  componentWillMount() {
-    console.log("ChildComponent: componentWillMount");
+  useEffect(() => {
+    alert('Component has been updated');
+    return () => {
+      alert('Component is being removed');
+    };
   }
-  componentDidMount() {
-    console.log("ChildComponent: componentDidMount");
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log("ChildComponent: componentWillReceiveProps ()");
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("ChildComponent: shouldComponentUpdate ()");
-    return true;
-  }
-  componentWillUpdate(nextProps, nextState) {
-    console.log("ChildComponent: componentWillUpdate ()");
-  }
-  componentDidUpdate(prevProps, prevState) {
-    console.log("ChildComponent: componentDidUpdate ()");
-  }
-  
-    
-  render() {
-    if (this.state.oops){
-        throw new Error("Something went wrong");
-    }
-    console.log("ChildComponent: render");
-    return [<div key= "name">
-      Name: {this.props.name}</div>
-    ];
-  }
-};
-class ParentComponent extends React.Component {
-  static defaultProps=(function(){
-        console.log("ParentComponent: defaultProps");
-        return {
-          true: false
-        };
-    }
-  )();
-  constructor(props) {
-    super(props);
-    console.log("ParentComponent: state");
-    this.state = {
-      name: ""
-    }
-    this.onInputchange=this.onInputchange.bind(this);
-  }
-  componentWillMount() {
-    console.log("ParentComponent: componentWillMount");
-  }
-  componentDidMount() {
-    console.log("ParentComponent: componentDidMount");
-  }
-
-  onInputchange(e){
-    this.setState({name: e.target.value});
-  }
-  render() {
-    console.log("ParentComponent: render");
-    return (<div>
-      <input key = "input" type="text" value={this.state.name} onChange={this.onInputchange}/>
-      <ChildComponent key = "ChildComponent" name={this.state.name}/>
-    </div>);
-  }
+  );
+  return (
+    <div>
+      <input id="inputTextBox" type="text"/>
+      <button type='button' onClick={UpdateText}>update</button>
+      <br/>
+      <label>{outputValue}</label>
+    </div>
+  );
 }
-export default ParentComponent;
+
+export default MyComponent;
   
 
   
