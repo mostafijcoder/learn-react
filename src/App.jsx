@@ -1,27 +1,64 @@
-import React, {useState, useEffect} from "react";
-import { render} from "react-dom";
-import PropTypes from "prop-types";
-import { useChangeAlert } from "./userChange.jsx";
+import React from "react";
+import axios from "axios";
 
-function MyComponent (props) {
-  const [outputValue, setOutputValue] = React.useState('Placeholder');
-  function UpdateText() {
-    setOutputValue(document.getElementById('inputTextBox').value);
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      data: []
+    };
   }
-  useChangeAlert(`The value is ${outputValue}`);
-  return (
-    <div>
-      <input id="inputTextBox" type="text"/>
-      <button type='button' onClick={UpdateText}>update</button>
-      <br/>
-      <label>{outputValue}</label>
-    </div>
-  );
+
+  componentDidMount() {
+    axios.get("https://api.github.com/users")
+      .then(response => {
+        this.setState({
+          isLoaded: true,
+          data: response.data
+        });
+      }) // <-- Corrected: properly closing .then() before .catch()
+      .catch(error => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      });
+  }
+
+  render() {
+    const { error, isLoaded, data } = this.state;
+
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div>
+          <h1>GitHub Users</h1>
+          <br />
+          {data.map((item) => (
+            <div key={item.id} className="UserBlock">
+              <img src={item.avatar_url} alt="User Icon" />
+
+              <div className="UserDetails">
+                <p><strong>Username:</strong> {item.login}</p>
+                <p><strong>ID:</strong> {item.id}</p>
+                <p>
+                  <strong>URL:</strong>{" "}
+                  <a href={item.html_url} target="_blank" rel="noopener noreferrer">
+                    {item.html_url}
+                  </a>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+  }
 }
 
 export default MyComponent;
-  
-
-  
-
-

@@ -9,4 +9,3 @@ createRoot(rootElement).render(
     <MyComponent />
   </React.StrictMode>
 );
-createRoot(rootElement).unmount();
