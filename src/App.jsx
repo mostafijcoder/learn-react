@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "./index.css";
 
 class MyComponent extends React.Component {
   constructor(props) {
@@ -36,7 +37,8 @@ class MyComponent extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
+        <div  style={{ display: 'inline-block',
+        marginLeft: '15px'}}>
           <h1>GitHub Users</h1>
           <br />
           {data.map((item) => (
